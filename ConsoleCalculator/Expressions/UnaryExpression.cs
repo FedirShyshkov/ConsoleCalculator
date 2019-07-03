@@ -14,7 +14,7 @@ namespace ConsoleCalculatorLibrary.Expressions
         }
 
         IExpressionNode _rhs;                  
-        Func<double, double> _operation;               
+        readonly Func<double, double> _operation;               
 
         public double Evaluate()
         {

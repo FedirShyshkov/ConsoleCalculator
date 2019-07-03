@@ -23,7 +23,7 @@ namespace ConsoleCalculatorLibrary
         {
             var expr = CalculateAddSubtract();
             if (parsedExpression.Peek().LexicalElement != Lexema.EOF)
-                throw new ArithmeticException("Unexpected characters at end of expression");
+                throw new ArgumentException("Unexpected characters at end of expression");
 
             return expr;
         }
@@ -101,13 +101,17 @@ namespace ConsoleCalculatorLibrary
                 var node = CalculateAddSubtract();
                 currentLexemaNode = parsedExpression.Peek();
                 if (currentLexemaNode.LexicalElement != Lexema.CloseBracket)
-                    throw new ArithmeticException("Parenthesis arent closed");
+                    throw new ArgumentException("Parenthesis arent closed in input expression");
                 parsedExpression.Dequeue();
 
                 return node;
             }
 
-            throw new ArithmeticException($"Unexpect lexema: {currentLexemaNode.LexicalElement}");
+            if(currentLexemaNode.LexicalElement == Lexema.EOF)
+            {
+                throw new ArgumentException("No input expression found");
+            }
+            throw new ArgumentException($"Unexpected lexema: {currentLexemaNode.LexicalElement}");
         }
 
         IExpressionNode CalculateUnary()
@@ -188,7 +192,7 @@ namespace ConsoleCalculatorLibrary
                         outputQueue.Enqueue(new LexemaNode(Lexema.CloseBracket));
                         continue;
                 }
-                throw new ArithmeticException($"Not supported character {_currentChar} in expression {inputString}");
+                throw new ArgumentException($"Not supported character {_currentChar} in expression {inputString}");
             }
             if (currentNumberExpression.Length > 0)
             {

@@ -232,5 +232,35 @@ namespace ConsoleCalculatorTests
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void Calculate_should_throw_ArithmeticException_if_input_expression_is_empty()
+        {
+            var inputExpression = "";
+            string expectedExceptionMessage = "No input expression found";
+
+            var exception = Assert.Throws<ArgumentException>(() => _sut.Calculate(inputExpression));
+            Assert.Equal(expectedExceptionMessage, exception.Message);
+        }
+
+        [Fact]
+        public void Calculate_should_throw_ArithmeticException_if_input_expression_has_unsupported_character()
+        {
+            var inputExpression = "1k1";
+            string expectedExceptionMessage = "Not supported character k in expression 1k1";
+
+            var exception = Assert.Throws<ArgumentException>(() => _sut.Calculate(inputExpression));
+            Assert.Equal(expectedExceptionMessage, exception.Message);
+        }
+
+        [Fact]
+        public void Calculate_should_throw_ArithmeticException_if_input_expression_has_not_closed_paranthesis()
+        {
+            var inputExpression = "2*(1+1-(3+4)";
+            string expectedExceptionMessage = "Parenthesis arent closed in input expression";
+
+            var exception = Assert.Throws<ArgumentException>(() => _sut.Calculate(inputExpression));
+            Assert.Equal(expectedExceptionMessage, exception.Message);
+        }
     }
 }

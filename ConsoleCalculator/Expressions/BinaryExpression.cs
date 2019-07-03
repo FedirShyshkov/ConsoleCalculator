@@ -9,7 +9,7 @@ namespace ConsoleCalculatorLibrary.Expressions
     {
         IExpressionNode _leftNode;
         IExpressionNode _rightNode;
-        Func<double, double, double> _operation;
+        readonly Func<double, double, double> _operation;
 
         public BinaryExpression(IExpressionNode leftNode, IExpressionNode rightNode, Func<double, double, double> operation)
         {

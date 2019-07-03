@@ -7,7 +7,7 @@ namespace ConsoleCalculatorLibrary.Expressions
 {
     public class ValueExpression : IExpressionNode
     {
-        private double _value;
+        readonly private double _value;
 
         public ValueExpression(double value)
         {
