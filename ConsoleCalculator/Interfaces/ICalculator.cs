@@ -1,4 +1,4 @@
-﻿namespace ConsoleCalculatorLibrary
+﻿namespace ConsoleCalculatorLibrary.Interfaces
 {
     public interface ICalculator
     {
